@@ -1,6 +1,7 @@
 ﻿using Android.App;
 using Android.Widget;
 using Android.OS;
+using RestSharp;
 
 namespace MyFirstXamarin.Droid
 {
@@ -15,14 +16,17 @@ namespace MyFirstXamarin.Droid
 
 			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.Main);
+			Android.Util.Log.Debug("test", "持てない");
 
-			// Get our button from the layout resource,
-			// and attach an event to it
-			Button button = FindViewById<Button> (Resource.Id.myButton);
-			
-			button.Click += delegate {
-				button.Text = string.Format ("{0} あへ", count++);
-			};
+			var client = new RestClient("http://www.apple.com/jp/");
+			var request = new RestRequest("/", Method.GET);
+			IRestResponse response = client.Execute(request);
+			Android.Util.Log.Debug("test", response.Content);
+
+			RestSharp.Deserializers.JsonDeserializer deserial = new RestSharp.Deserializers.JsonDeserializer();
+			People people = deserial.Deserialize<People>(response);
+			Android.Util.Log.Debug("test", people.FirstName);
+
 		}
 	}
 }
