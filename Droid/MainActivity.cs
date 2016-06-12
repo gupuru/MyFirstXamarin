@@ -2,13 +2,13 @@
 using Android.Widget;
 using Android.OS;
 using RestSharp;
+using System.Collections.Generic;
 
 namespace MyFirstXamarin.Droid
 {
 	[Activity (Label = "MyFirstXamarin", MainLauncher = true, Icon = "@mipmap/icon")]
 	public class MainActivity : Activity
 	{
-		int count = 1;
 
 		protected override void OnCreate (Bundle savedInstanceState)
 		{
@@ -16,16 +16,44 @@ namespace MyFirstXamarin.Droid
 
 			// Set our view from the "main" layout resource
 			SetContentView (Resource.Layout.Main);
-			Android.Util.Log.Debug("test", "持てない");
 
-			var client = new RestClient("http://www.apple.com/jp/");
+			List<People> people = new PeopleUtil().read();
+			foreach (People p in people)
+			{
+				Android.Util.Log.Debug("aaa", p.FirstName);
+			}
+
+
+
+			/*
+			var client = new RestClient("https://raw.githubusercontent.com/gupuru/MyFirstXamarin/asset/data.json");
 			var request = new RestRequest("/", Method.GET);
-			IRestResponse response = client.Execute(request);
-			Android.Util.Log.Debug("test", response.Content);
+		//	IRestResponse response = client.Execute(request);
 
+			client.ExecuteAsync(request, response =>
+			{
+				RestSharp.Deserializers.JsonDeserializer deserial = new RestSharp.Deserializers.JsonDeserializer();
+				List<People> people = deserial.Deserialize<List<People>>(response);
+				foreach (People p in people)
+				{
+					Android.Util.Log.Debug("test", p.FirstName);
+				}
+
+				new PeopleUtil().write(people);
+
+
+			});
+			*/
+			/*
 			RestSharp.Deserializers.JsonDeserializer deserial = new RestSharp.Deserializers.JsonDeserializer();
-			People people = deserial.Deserialize<People>(response);
-			Android.Util.Log.Debug("test", people.FirstName);
+			List<People> people = deserial.Deserialize<List<People>>(response);
+
+			new PeopleUtil().write(people);*/
+
+			//foreach (People p in people)
+			//{
+			//	Android.Util.Log.Debug("test", p.LastName);
+			//}
 
 		}
 	}
