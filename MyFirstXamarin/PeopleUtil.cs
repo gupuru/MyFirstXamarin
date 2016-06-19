@@ -13,7 +13,7 @@ namespace MyFirstXamarin
 
 		public void write(List<People> people)
 		{
-			var realm = Realm.GetInstance();
+			/*var realm = Realm.GetInstance();
 			realm.Write(() =>
 			{
 				foreach (People p in people)
@@ -23,13 +23,13 @@ namespace MyFirstXamarin
 					myPeople.LastName = p.LastName;
 				}
 						
-			});
+			});*/
 
 		}
 
 		public List<People> read()
 		{
-			List<People> people = new List<People>();
+			/*List<People> people = new List<People>();
 			var realm = Realm.GetInstance();
 			var e = realm.All<PeopleRealm>();
 			foreach (var p in e)
@@ -41,7 +41,8 @@ namespace MyFirstXamarin
 				people.Add(pe);
 			}
 			return people;
-
+*/
+			return null;
 		}
 
 	}

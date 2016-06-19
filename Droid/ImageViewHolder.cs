@@ -8,19 +8,24 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
+using Android.Support.V7.Widget;
 using Android.Views;
 using Android.Widget;
+using FFImageLoading.Views;
 
 namespace MyFirstXamarin.Droid
 {
-	[Activity(Label = "ImageViewHolder")]
-	public class ImageViewHolder : Activity
+	public class ImageViewHolder : RecyclerView.ViewHolder
 	{
-		protected override void OnCreate(Bundle savedInstanceState)
-		{
-			base.OnCreate(savedInstanceState);
+		public ImageViewAsync Image { get; private set; }
+		public TextView Text { get; private set; }
 
-			// Create your application here
+		public ImageViewHolder(View itemView, Action<int> listener) : base(itemView)
+		{
+			Image = itemView.FindViewById<ImageViewAsync> (Resource.Id.imageView);
+			Text = itemView.FindViewById<TextView> (Resource.Id.textView);
+
+			itemView.Click += (sender, e) => listener(base.Position);
 		}
 	}
 }
